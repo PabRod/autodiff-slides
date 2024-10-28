@@ -84,18 +84,78 @@
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience-cover.png" -->
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience-cover.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Automatic differentiation
 ## A peek under the hood
 
 By Pablo Rodríguez-Sánchez
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div>
+
+<aside class="notes"><p>this is not! Only the speaker might see this text.</p>
+<ul>
+<li>and this bulletpoint</li>
+<li>or this picture<h3 id="mind-map">Mind map</h3>
+</li>
+</ul>
+<div class="mermaid">
+timeline
+    title Talk structure
+    Introduction : Maths tutor
+                 : Physics and maths
+                 : Wish I knew before
+    Numerical    : Link to definition
+                 : Complex step
+    Automatic    : Dual numbers
+                 : Implementation
+    Outro        : You don't really need any of this
+                 : Backward differentiation is more useful
+                 : But this is plain beautiful
+
+</div></aside></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 ## Remember derivatives?
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+
+<img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*Q9Yu0QQ0968X_ZoUOvxF3g.gif" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+$
+f'(x_0) \equiv \lim_{\epsilon \to 0} \frac{f(x_0 + \epsilon) - f(x_0)}{\epsilon}
+$
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+$
+f'(x_0) \approx \frac{f(x_0 + \epsilon) - f(x_0)}{\epsilon}
+$
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="https://i.sstatic.net/2NTNV.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- Linearity
+	- &shy;<!-- .element: class="fragment" data-fragment-index="1" -->`$(f(x) + g(x))' = f'(x) + g'(x)$`
+	- &shy;<!-- .element: class="fragment" data-fragment-index="2" -->`$(f(x) - g(x))' = f'(x) - g'(x)$`
+	- &shy;<!-- .element: class="fragment" data-fragment-index="3" -->`$c \cdot f(x)' = c \cdot f'(x)$`
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- Product rule
+	- &shy;<!-- .element: class="fragment" data-fragment-index="1" -->(`$f(x)\cdot g(x))' = f'g + g'f$` 
+- &shy;<!-- .element: class="fragment" data-fragment-index="2" -->Quotient rule
+	- &shy;<!-- .element: class="fragment" data-fragment-index="3" -->(`$\frac{f(x)}{g(x)})' = \frac{f'g - g'f}{g^2}$`
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- Chain rule
+	- &shy;<!-- .element: class="fragment" data-fragment-index="1" -->`$(f(g(x)))' = f'(g) \cdot g'(x)$`
+	- &shy;<!-- .element: class="fragment" data-fragment-index="2" -->`$\frac{df}{dx} = \frac{df}{dg} \frac{dg}{dx}$`
+</div></script></section></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 ## Dual numbers
@@ -105,53 +165,51 @@ z = (u, u')
 $
 
 Where:
-- `$u$`  represents a function*
-- `$u'$` represents its derivative*
-
-\* Both of them evaluated at a given point
-</div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+- `$u$`  represents a function
+- `$u'$` represents its derivative
+</div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Addition
 $
-(u, u') + (v, v') = (u + v, u' + v')
+(f, f') + (g, g') = (f + g, f' + g')
 $
 $
-z(x) = u(x) + v(x) \rightarrow z'(x) = u'(x) + v'(x)
+z(x) = f(x) + g(x) \rightarrow z'(x) = f'(x) + g'(x)
 $
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Subtraction
 $
-(u, u') - (v, v') = (u - v, u' - v')
+(f, f') - (g, g') = (f - g, f' - g')
 $
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Multiplication
 $
-(u, u') \cdot (v, v') = (uv, u'v + uv')
+(f, f') \cdot (g, g') = (fg, f'g + fg')
 $
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 #  Division
 $
-\frac{(u, u')}{(v, v')} = (\frac{u}{v}, \frac{u'v - uv'}{v^2})
+\frac{(f, f')}{(g, g')} = (\frac{f}{g}, \frac{f'g - fg'}{g^2})
 $
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Powers
 $
-(u, u')= (u^n, nu^{n-1} \cdot u')
+(f, f')= (f^n, nf^{n-1} \cdot f')
 $
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # So what?
-</div></script></section></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Consider this
@@ -160,18 +218,18 @@ f((x, 1)) = (f(x), f'(x))
 $
 
 Is true for <mark>**any**</mark> algebraic function!
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # What about non-algebraic?
 $
 \cos((u, u')) = (\cos u, -u' \sin u)
 $
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Multiple dispatch
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Boilerplate
@@ -184,7 +242,7 @@ end
 
 const DualNumber = Union{Dual, Number}
 ```
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Boilerplate
@@ -204,7 +262,7 @@ struct Dual
     end
 end
 ```
-</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 # Addition
@@ -219,28 +277,8 @@ function +(self::DualNumber, other::DualNumber)::Dual
     return Dual(self.x + other.x, self.dx + other.dx)
 end
 ```
-</div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-# Effects
-
-Show:
-
-- a
-- &shy;<!-- .element: class="fragment" data-fragment-index="1" -->`$e^x$`
-- &shy;<!-- .element: class="fragment" data-fragment-index="2" -->c
-</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="_meta/_img/escience.png" -->
-<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
-
-# Split
-<split even gap="2">
-
-Addition
-
-`$(u, u') + (v, v') = (u + v, u' + v')$`
-
-</split>
-</div></script></section></section></div>
+``
+</div></script></section><section  data-markdown><script type="text/template"></script></section></div>
     </div>
 
     <script src="dist/reveal.js"></script>
