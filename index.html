@@ -93,12 +93,8 @@
 By Pablo Rodríguez-Sánchez
 </div>
 
-<aside class="notes"><p>this is not! Only the speaker might see this text.</p>
-<ul>
-<li>and this bulletpoint</li>
-<li>or this picture<h3 id="mind-map">Mind map</h3>
-</li>
-</ul>
+<aside class="notes"><p>this will be invisible in the slide</p>
+<h3 id="mind-map">Mind map</h3>
 <div class="mermaid">
 timeline
     title Talk structure
@@ -134,7 +130,32 @@ $
 </div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-<img src="https://i.sstatic.net/2NTNV.png" alt="" style="object-fit: scale-down">
+$
+f'(x_0) \approx \frac{f(x_0 + \epsilon) - f(x_0)}{\epsilon} + O(\epsilon)
+$
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Fun fact
+
+$
+f'(x_0) \equiv \lim_{\epsilon \to 0} \frac{1}{\epsilon }\Im f(x_0 + i \epsilon)
+$
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Fun fact
+$
+f'(x_0) \approx \frac{1}{\epsilon }\Im f(x_0 + i \epsilon) + O(\epsilon^2)
+$
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="https://pabrod.github.io/images/portfolio/blackboard.jpeg" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="https://i.pinimg.com/736x/ae/f7/de/aef7de3943fdc4e20909e593f3564b83.jpg" alt="" style="object-fit: scale-down">
 </div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -161,12 +182,13 @@ $
 ## Dual numbers
 
 $
-z = (u, u')
+z = (f, f')
 $
 
 Where:
-- `$u$`  represents a function
-- `$u'$` represents its derivative
+- `$f$`  represents a function
+- `$f'$` represents its derivative
+- Both of them evaluated at a given point
 </div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="https://github.com/PabRod/autodiff-slides/blob/main/_meta/_img/escience.png?raw=true" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
