@@ -229,7 +229,7 @@ $(f, f') > (g, g') \iff f > g$
 >(self::Dual, other::Dual) = self.x > other.x
 ```
 --
-## Teach algo the basics
+## Teach also the basics
 $(f, f') \equiv (g, g') \iff f \equiv g, f' \equiv g'$
 ```julia
 ==(self::Dual, other::Dual) = (self.x == other.x) && (self.dx == other.dx)
