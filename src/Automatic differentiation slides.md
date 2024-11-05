@@ -310,11 +310,17 @@ sec(x::Dual) = 1 / cos(x)
 cot(x::Dual) = 1 / tan(x)
 ```
 
+Found typo: the code above requires coercing `Real` into `Dual` at quotient definition. 
+See code [here](https://github.com/PabRod/DualDiff.jl/blob/main/src/Dual.jl#L59). 
+I hid this in the slides for the sake of simplicity. 
+
+Kudos for [Suvayu Ali](https://www.esciencecenter.nl/team/suvayu-ali/) for noticing.
+
 --
 ## Example
 
 ```julia
-fun = x -> x + tan(cos(x)^2 + sin(x)^2)  
+fun = x -> x + tan(cos(x)^(2) + sin(x)^(2))  
   
 z = Dual(0, 1)  
 fun(z)  
